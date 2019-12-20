@@ -5,6 +5,10 @@ window.addEventListener('load', () => {
     let temperatureDescription = document.querySelector('.temperature-description');
     let temperatureDegree = document.querySelector('.temperature-degree');
     let locationTimezone = document.querySelector('.location-timezone');
+    let temperatureSection = document.querySelector('.temperature');
+    const temperatureSpan = document.querySelector('.temperature span');
+
+
 
     // if the place exist in the broswer, we can find the exact place.
     if (navigator.geolocation) {
@@ -25,12 +29,21 @@ window.addEventListener('load', () => {
                 .then(data => {
                     console.log(data);
                     const { temperature, summary, icon } = data.currently;
-                    //set DOM elemnets from the api
+                    //set DOM elements from the api
                     temperatureDegree.textContent = temperature;
                     temperatureDescription.textContent = summary;
                     locationTimezone.textContent = data.timezone;
                     //set icon
                     setIcons(icon, document.querySelector(".icon"));
+
+                    //changing to celsius/farenheit
+                    temperatureSection.addEventListener('click', () => {
+                        if (temperatureSpan.textContent === "F") {
+                            temperatureSpan.textContent = "C";
+                        } else {
+                            temperatureSpan.textContent = "F";
+                        }
+                    })
 
 
                 });
